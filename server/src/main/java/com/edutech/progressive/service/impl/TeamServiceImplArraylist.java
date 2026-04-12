@@ -33,6 +33,14 @@ public class TeamServiceImplArraylist implements TeamService {
     @Override
     public List<Team> getAllTeamsSortedByName() {
     //    Collections.sort(list,teamComparator);
+     
+Collections.sort(list, new Comparator<Team>() {
+        @Override
+        public int compare(Team t1, Team t2) {
+            return t1.getTeamName().compareTo(t2.getTeamName());
+        }
+    });
+
 
        return list;
     }
