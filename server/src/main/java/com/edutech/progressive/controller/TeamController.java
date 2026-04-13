@@ -2,7 +2,9 @@ package com.edutech.progressive.controller;
 
 import com.edutech.progressive.entity.Team;
 import com.edutech.progressive.service.impl.TeamServiceImplArraylist;
+// import com.edutech.progressive.service.impl.TeamServiceImplArraylist;
 import com.edutech.progressive.service.impl.TeamServiceImplJdbc;
+import com.edutech.progressive.service.impl.TeamServiceImplJpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,19 +22,20 @@ import java.util.List;
 public class TeamController {
     @Autowired
     TeamServiceImplArraylist teamServiceImplArraylist;
-    TeamServiceImplJdbc teamServiceImplJdbc;
+    @Autowired
+    TeamServiceImplJpa teamServiceImplJpa;
     public ResponseEntity<List<Team>> getAllTeams() {
         return null;
     }
     
     @GetMapping("/{teamId}")
     public ResponseEntity<Team> getTeamById(int teamId) throws SQLException {
-        return  null;
+        return new  ResponseEntity<>(teamServiceImplJpa.getTeamById(teamId),HttpStatus.OK);
     }
     
     @PostMapping
     public ResponseEntity<Integer> addTeam(Team team) throws SQLException {
-        return new ResponseEntity<>(teamServiceImplJdbc.addTeam(team),HttpStatus.OK);
+        return new ResponseEntity<>(teamServiceImplJpa.addTeam(team),HttpStatus.OK);
     }
     @PutMapping("/{teamId}")
     public ResponseEntity<Void> updateTeam(int teamId, Team team) throws SQLException {

@@ -5,17 +5,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.edutech.progressive.entity.Cricketer;
 import com.edutech.progressive.service.CricketerService;
-@Service
+
 public class CricketerServiceImplArraylist implements CricketerService {
 
     List<Cricketer> cricketers = new ArrayList<>();
     @Override
     public List<Cricketer> getAllCricketers() {
-
         
         return cricketers;
 
@@ -38,15 +35,7 @@ public class CricketerServiceImplArraylist implements CricketerService {
 
     @Override
     public List<Cricketer> getAllCricketersSortedByExperience() {
-
-        
-Collections.sort(cricketers, new Comparator<Cricketer>() {
-        @Override
-        public int compare(Cricketer c1, Cricketer c2) {
-            return c1.getExperience() - c2.getExperience();
-        }
-    });
-
+        // Collections.sort(cricketers, cricketerComparator);
         return cricketers;
        
     }

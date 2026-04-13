@@ -39,6 +39,7 @@ public class TeamServiceImplJdbc implements TeamService {
         //         return  arg0.getTeamName().compareTo(arg1.getTeamName());
         //     }
         // });
+        Collections.sort(list);
         return list;
 
     }

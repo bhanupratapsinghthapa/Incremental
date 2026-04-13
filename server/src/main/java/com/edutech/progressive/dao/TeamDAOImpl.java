@@ -33,8 +33,9 @@ public class TeamDAOImpl implements TeamDAO  {
                ResultSet rs = ps.getGeneratedKeys();
            if(rs.next())
            {
-             int key =rs.getInt(1);
-             return key;
+             team.setTeamId(rs.getInt(1));
+             return rs.getInt(1);
+
             }
         }
         return count;

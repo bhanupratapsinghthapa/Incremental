@@ -2,6 +2,7 @@ package com.edutech.progressive.dao;
 
 import java.sql.Statement;
 import java.sql.Connection;
+// import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,6 +37,7 @@ public class MatchDAOImpl implements MatchDAO {
                ResultSet rs = ps.getGeneratedKeys();
            if(rs.next())
            {
+             match.setMatchId(rs.getInt(1));
              int key =rs.getInt(1);
              return key;
             }
