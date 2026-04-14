@@ -5,10 +5,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.edutech.progressive.dao.CricketerDAO;
 import com.edutech.progressive.entity.Cricketer;
 import com.edutech.progressive.service.CricketerService;
-
+@Service
 public class CricketerServiceImplJdbc implements CricketerService  {
 
     public CricketerServiceImplJdbc() {

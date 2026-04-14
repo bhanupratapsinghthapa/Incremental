@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CollectionId;
@@ -17,6 +19,8 @@ public class Cricketer implements Comparable<Cricketer> {
 @Column(name = "cricketer_id")
 private int cricketerId;
 @Column(name="team_id")
+// @ManyToOne
+// @JoinColumn(name = "team_id")
 private int teamId;
 @Column(name="cricketer_name")
 private String cricketerName;

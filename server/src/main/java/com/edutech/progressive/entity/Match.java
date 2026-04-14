@@ -2,11 +2,13 @@ package com.edutech.progressive.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;;
@@ -19,9 +21,11 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="match_id")
     private int matchId;
-    @Column(name="first_team_id")
+    // @Column(name="first_team_id")
+    // @ManyToOne(cascade = CascadeType.MERGE)
     private int firstTeamId;
     @Column(name="second_team_id")
+    // @ManyToOne(cascade = CascadeType.MERGE)
     private int secondTeamId;
     @Temporal(TemporalType.DATE)
     @Column(name="match_date")
@@ -30,6 +34,7 @@ public class Match {
     private String result;
     private String status;
     @Column(name="winner_team_id")
+    // @ManyToOne
     private int winnerTeamId;
     public Match() {
     }

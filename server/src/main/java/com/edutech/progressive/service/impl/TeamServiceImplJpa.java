@@ -5,36 +5,73 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.edutech.progressive.entity.Team;
+import com.edutech.progressive.repository.TeamRepository;
+import com.edutech.progressive.service.TeamService;
+@Service
+public class TeamServiceImplJpa implements TeamService {
 
-public class TeamServiceImplJpa  {
+    @Autowired
+    TeamRepository teamRepository;
+    
+   
+   List<Team> teams = new ArrayList<>();
+    public TeamServiceImplJpa(TeamRepository teamRepository) {
+        this.teamRepository = teamRepository;
+    }
 
     List<Team> list = new ArrayList<>();
-    public List<Team> getAllTeam() throws SQLException
+    public List<Team> getAllTeams() throws SQLException
     {
-           return list;
+           return teamRepository.findAll();
     }
     public int addTeam(Team team) throws SQLException{
-        return -1;
+        Team newteam = teamRepository.save(team);
+        return newteam.getTeamId();
+        
         
     }
     public List<Team> getAllTeamsSortedByName() throws SQLException
     {
-         return list;
+        List<Team> list1 = teamRepository.findAll();
+        Collections.sort(list1);
+        return list1;
+
+
     }
 
     public Team getTeamById(int teamId) throws SQLException{
-        return null;
+       return teamRepository.findByTeamId(teamId);
     }
 
-    public  void updateTeam(Team team) throws SQLException
+    public void updateTeam(int teamId ,Team team) throws SQLException
     {
+        Team team1 =teamRepository.findByTeamId(teamId);
+        if(team1 != null)
+        {
+        team1.setEstablishmentYear(team.getEstablishmentYear());
+        team1.setLocation(team.getLocation());
+        team1.setOwnerName(team.getOwnerName());
+        team1.setTeamId(team.getTeamId());
+        team1.setTeamName(team.getTeamName());
+        teamRepository.save(team1);
+        }
     }
 
     public void deleteTeam(int teamId) throws SQLException
     {
+        teamRepository.deleteById(teamId);
 
     }
+    public void findById(int teamId) {
+        teamRepository.findByTeamId(teamId);
+        
+    }
+   
 
 }
