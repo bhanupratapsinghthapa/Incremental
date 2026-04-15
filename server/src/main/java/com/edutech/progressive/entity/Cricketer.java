@@ -2,6 +2,7 @@ package com.edutech.progressive.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,8 +20,6 @@ public class Cricketer implements Comparable<Cricketer> {
 @Column(name = "cricketer_id")
 private int cricketerId;
 @Column(name="team_id")
-// @ManyToOne
-// @JoinColumn(name = "team_id")
 private int teamId;
 @Column(name="cricketer_name")
 private String cricketerName;
@@ -33,6 +32,10 @@ private String role;
 private int totalRuns;
 @Column(name="total_wickets")
 private int totalWickets;
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "team_id",insertable = false,updatable = false)
+private Team team;
+
 
 public Cricketer() {
 }
@@ -117,6 +120,20 @@ public void setNationality(String nationality) {
 public int compareTo(Cricketer Obj) {
     return Integer.compare(this.getExperience(),Obj.getExperience());
 }
+
+
+public Team getTeam() {
+    return team;
+}
+
+public void setTeam(Team team) {
+    this.team = team;
+    if (team != null) {
+        this.teamId = team.getTeamId();   
+    }
+}
+
+
 
 
 }
