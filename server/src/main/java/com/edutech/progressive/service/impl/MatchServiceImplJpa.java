@@ -6,44 +6,56 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.edutech.progressive.entity.Match;
 import com.edutech.progressive.repository.MatchRepository;
+import com.edutech.progressive.service.MatchService;
+@Service
+public class MatchServiceImplJpa implements MatchService {
 
-public class MatchServiceImplJpa  {
+    private MatchRepository matchRepository;
 
-      @Autowired
-    MatchRepository matchRepository;
-    List<Match> list = new ArrayList<>();
- 
+    // @Autowired
+    // private TicketBookingRepository ticketBookingRepository;
 
-    public List<Match> getAllMatches() throws SQLException
-    { 
-        return matchRepository.findAll();  
+    @Autowired
+    public MatchServiceImplJpa(MatchRepository matchRepository) {
+        this.matchRepository = matchRepository;
     }
-    public int  addMatch(Match match)  throws SQLException
-    {
-        list.add(match);
+
+    @Override
+    public List<Match> getAllMatches() throws SQLException {
+        return matchRepository.findAll();
+    }
+
+    @Override
+    public Match getMatchById(int matchId) throws SQLException {
+        return matchRepository.findByMatchId(matchId);
+    }
+
+    @Override
+    public Integer addMatch(Match match) throws SQLException {
+        return matchRepository.save(match).getMatchId();
+    }
+
+    @Override
+    public void updateMatch(Match match) throws SQLException {
         matchRepository.save(match);
-        return -1;
     }
-    public List<Match> getMatchById(int matchId)  throws SQLException
-    {
-        return null;
-        
-    }
-    public void updateMatch(Match match)  throws SQLException
-    {
-    }
-    public void deleteMatch(int matchId)  throws SQLException
-    {
-         Match match = matchRepository.findById(matchId).get();
-         matchRepository.delete(match);
-    }
-    public Match getAllMatchesStatus(String status)  throws SQLException
-    {
-          return null;
-    }
-   
 
+    @Override
+    public void deleteMatch(int matchId) throws SQLException {
+        // ticketBookingRepository.deleteByMatchId(matchId);
+        matchRepository.deleteById(matchId);}
+
+    @Override
+    public List<Match> getAllMatchesByStatus(String status) throws SQLException {
+        List<Match> matchList = matchRepository.findAllByStatus(status);
+        if (matchList.isEmpty()) {
+            // throw new NoMatchesFoundException("No matches found with status = " + status);
+            return null;
+        }
+        return matchList;
+    }
 }
